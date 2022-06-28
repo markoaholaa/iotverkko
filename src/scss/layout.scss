@@ -1,0 +1,41 @@
+@use 'colors.scss';
+@use 'constants.scss';
+
+.main-page {
+	max-height: calc(100vh - constants.$headerHeight);
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	overflow: hidden;
+
+	.left {
+		max-height: calc(100vh - constants.$headerHeight);
+		padding: 1rem;
+		scrollbar-width: none;
+		overflow-y: scroll;
+	}
+
+	.right {
+		max-height: calc(100vh - constants.$headerHeight);
+		overflow-y: scroll;
+	}
+}
+
+.content-page {
+	padding: 1rem;
+}
+
+.grid {
+	display: grid;
+}
+
+.grid-2 {
+	grid-template-columns: 1fr 1fr;
+}
+
+.grid-auto {
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.gap-1 {
+	gap: 1rem;
+}

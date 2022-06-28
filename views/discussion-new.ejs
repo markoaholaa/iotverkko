@@ -1,0 +1,31 @@
+<%- include('partials/head') %>
+
+<main class="main">
+	<section class="main-page">
+		<div class="left">
+			<h3>
+				Uusi keskustelu
+			</h3>
+			<article class="content">
+				<form action="/newThread" method="post">
+					<div class="form-field">
+						<label for="title">Otsikko:</label>
+						<input type="text" name="title" required>
+					</div>
+					<div class="form-field">
+						<label for="content">Sisältö:</label>
+						<textarea name="content" id="" cols="30" rows="10"></textarea>
+					</div>
+					<div class="form-button">
+						<button type="submit">Julkaise</button>
+					</div>
+				</form>
+			</article>
+		</div>
+		<div class="right">
+			<div id="map"></div>
+		</div>
+	</section>
+</main>
+
+<%- include('partials/footer') %>

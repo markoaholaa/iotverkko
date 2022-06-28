@@ -1,0 +1,38 @@
+<%- include('partials/head') %>
+
+<main class="main">
+	<section class="main-page">
+		<div class="left">
+			<article class="content">
+				<p>Voit ladata ja tulostaa laitteellesi koteloita näiden 3D mallien avulla.</p>
+				<div class="button-selectors">
+					<button class="model-button" value="/static/3dmodels/case.glb">Big Case</button>
+					<button class="model-button" value="/static/3dmodels/dht22case.glb">DHT22</button>
+					<button class="model-button" value="dht22">DHT22</button>
+					<button class="model-button" value="dht22">DHT22</button>
+					<button class="model-button" value="dht22">DHT22</button>
+				</div>
+			</article>
+		</div>
+		<div class="right model">
+			<a class="model-download" href="/download/models/case.zip"><i class="fa-solid fa-download"></i></a>
+			<model-viewer id="threeDmodel" shadow-intensity="1" src="/static/3dmodels/case.glb"
+				alt="3D models for cases" auto-rotate camera-controls poster=""></model-viewer>
+		</div>
+	</section>
+</main>
+
+<script>
+	const model = document.getElementById('threeDmodel');
+	const buttons = document.querySelectorAll('.model-button');
+	const dlButton = document.querySelector('.model-download');
+
+	buttons.forEach(btn => {
+		btn.addEventListener('click', () => {
+			model.setAttribute('src', btn.value);
+			dlButton.setAttribute('href', `../../download/models/${btn.value.replace('/static/3dmodels/', '').replace('.glb', '.zip')}`);
+		});
+	});
+</script>
+
+<%- include('partials/footer') %>

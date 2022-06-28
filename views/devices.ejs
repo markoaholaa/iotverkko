@@ -1,0 +1,23 @@
+<%- include('partials/head') %>
+
+<main class="main">
+	<section class="main-page">
+		<div class="left">
+			<% devices.forEach(device => { %>
+			<article class="update">
+				<h3><%= device.device %></h3>
+				<p>Laite rekisteröitiin palveluun <%= device.createdAt.toLocaleDateString() %> ja sen viimeisin julkaisu
+					tapahtui <%= new Date(device.lastPublish * 1000).toLocaleString() %>.</p>
+				<p>Laitteen omistaa <%= device.owner %> ja sen anturina toimii <%= device.sensor %>.</p>
+			</article>
+			<% }) %>
+		</div>
+		<div class="right">
+			<div id="map"></div>
+		</div>
+	</section>
+</main>
+
+<script src="/static/js/socket.io.min.js"></script>
+<script src="/static/js/map.js"></script>
+<%- include('partials/footer') %>

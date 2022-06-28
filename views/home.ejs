@@ -1,0 +1,17 @@
+<%- include('partials/head') %>
+
+<main class="main">
+	<section class="main-page">
+		<div class="left">
+			<p class="waitingfordata">Odotetaan dataa...</p>
+		</div>
+		<div class="right">
+			<div id="map"></div>
+		</div>
+	</section>
+</main>
+
+<script src="/static/js/socket.io.min.js"></script>
+<script src="/static/js/map.js"></script>
+<script src="/static/js/dataUpdates.js"></script>
+<%- include('partials/footer') %>

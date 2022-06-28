@@ -1,0 +1,78 @@
+<%- include('partials/head') %>
+
+<main class="main">
+	<section class="main-page">
+		<div class="left">
+			<article class="content">
+				<h3><%= device.device %></h3>
+				<div class="grid grid-2 gap-1">
+					<div class="box">
+						<p>Omistaja: <%= device.owner %></p>
+					</div>
+					<div class="box">
+						<p>Sijainti: <%= device.location.lat.toFixed(3) %>, <%= device.location.lon.toFixed(3) %></p>
+					</div>
+					<div class="box">
+						<p>Anturi: <%= device.sensor %></p>
+					</div>
+					<div class="box">
+						<p>Aktiivinen: <%= device.active ? 'Kyllä' : 'Ei' %></p>
+					</div>
+				</div>
+			</article>
+
+			<% updates.reverse().forEach(update => { %>
+			<article class="update">
+				<h3><%= update.createdAt.toLocaleString() %></h3>
+				<p><%= update.temperature %>°C / <%= update.humidity %>%</p>
+			</article>
+			<% }) %>
+		</div>
+		<div class="right">
+			<div id="map"></div>
+		</div>
+	</section>
+</main>
+
+<script>
+	const maxBounds = [
+		[71.5329714169, 51.5799995065],
+		[58.043732012, 2.6993827224],
+	];
+
+	const bigMap = document.getElementById('map');
+
+	const date = new Date();
+	const hour = date.getHours();
+
+	const mapUrl = (hour >= 19 && hour <= 24) ? 'https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png' : 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png';
+	let map;
+	let marker;
+	let markers = [];
+
+	map = L.map(bigMap, {
+		center: [<%= device.location.lon %>, <%= device.location.lat %>],
+		zoom: 5,
+		minZoom: 5,
+		maxZoom: 18,
+	}).setView([<%= device.location.lon %>, <%= device.location.lat %>]);
+
+
+	map.setMaxBounds(maxBounds);
+	map.fitBounds(maxBounds);
+
+	L.tileLayer(mapUrl, {
+		attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+		maxZoom: 18,
+		tileSize: 512,
+		zoomOffset: -1,
+		bounds: maxBounds,
+		accessToken: 'pk.eyJ1IjoibWFya29haG9sYSIsImEiOiJjbDNxZXpkNWgwYm85M2pwZm5lNm1pdm4wIn0.l4ffKeewsYuqfh9qSGs4Zg'
+	}).addTo(map);
+
+	L.marker({
+		lat: <%= device.location.lat %>,
+		lon: <%= device.location.lon %>
+	}).addTo(map);
+</script>
+<%- include('partials/footer') %>

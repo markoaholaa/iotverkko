@@ -1,0 +1,15 @@
+<header class="header">
+	<div class="links">
+		<a href="/">Etusivu</a>
+		<a href="/new-device">Rekisteröi laite</a>
+	</div>
+	<div class="user">
+		<% if (!user) { %>
+		<a href="/login"><i class="fa-solid fa-arrow-right-to-bracket"></i></a>
+		<a href="/register"><i class="fa-solid fa-user-plus"></i></a>
+		<% } else { %>
+		<a href="/profile"><i class="fa-solid fa-user-gear"></i></a>
+		<a href="/logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+		<% } %>
+	</div>
+</header>

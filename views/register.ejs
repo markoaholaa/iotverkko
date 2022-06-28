@@ -1,0 +1,65 @@
+<%- include('partials/head') %>
+
+<main class="main">
+	<section class="main-page">
+		<div class="left">
+			<form action="/register-device" method="post">
+				<h3>Rekisteröi uusi laite</h3>
+				<div class="form-field">
+					<label for="coordinates">Valitse laitteen sijainti klikkaamalla sijaintia kartalla.</label>
+					<div class="grid grid-2 gap-1">
+						<div>
+							<input type="text" name="lat" readonly id="lat">
+							<small>Leveysaste</small>
+						</div>
+						<div>
+							<input type="text" name="lon" readonly id="lon">
+							<small>Pituusaste</small>
+						</div>
+					</div>
+					<small>Tietosuojasyistä suosittelemme asettamaan merkin vähän etäämmälle laitteen oikeasta
+						sijainnista.</small>
+				</div>
+
+				<div class="form-field">
+					<label for="device">Laite:</label>
+					<input type="text" name="device" required>
+					<small>Kirjoita laitteen tarkka malli. Esim. Arduino MKR GSM 1400</small>
+				</div>
+
+				<div class="form-field">
+					<label for="sensor">Anturi:</label>
+					<input type="text" name="sensor" required>
+					<small>Esim. DHT22. Huomioithan, että DHT11 anturi ei mittaa alle 0°C lämpötiloja.</small>
+				</div>
+
+				<div class="form-field">
+					<label for="photo">Kuva:</label>
+					<input type="file" name="photo">
+					<small>Voit halutessasi lähettää myös kuvan rakentamastasi sääasemasta.</small>
+				</div>
+
+				<div class="form-info">
+					<p>Lomake tallentaa laitteen automaattisesti tilillesi. Kaikki voivat nähdä laitteen omistajan,
+						sijainnin ja sen antamat tiedot.</p>
+					<div class="form-checkbox">
+						<input type="checkbox" name="visibility" required>
+						<label for="visibility">OK</label>
+					</div>
+				</div>
+
+				<div class="form-button">
+					<button type="submit">Lisää</button>
+				</div>
+
+			</form>
+		</div>
+		<div class="right">
+			<div id="map"></div>
+		</div>
+	</section>
+</main>
+
+<script src="/static/js/socket.io.min.js"></script>
+<script src="/static/js/map.js"></script>
+<%- include('partials/footer') %>

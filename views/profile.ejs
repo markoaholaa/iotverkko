@@ -1,0 +1,38 @@
+<%- include('partials/head') %>
+
+<main class="main">
+	<section class="main-page">
+		<div class="left">
+			<h3>Laitteesi</h3>
+			<% devices.forEach(device => { %>
+			<article class="content device-<%= device.deviceid %> <%= device.active ? 'active' : 'inactive' %>">
+				<h3><%= device.device %></h3>
+				<p><i class="fa-solid fa-key"></i> <%= device.deviceSecret %></p>
+				<p><i class="fa-solid fa-location-dot"></i> <%= device.location.lat %>, <%= device.location.lon %></p>
+				<p class="status-<%= device.deviceid %>"><i class="fa-solid fa-tower-broadcast"></i>
+					<%= device.active ? 'Aktiivinen' : 'Ei aktiivinen' %></p>
+
+				<% if (!device.active) { %>
+				<button class="action-button device-button" value="<%= device.deviceid %>">
+					<span data-tooltip="Aktivoi laite" data-flow="top"><i class="fa-solid fa-tower-cell"></i></span>
+				</button>
+				<% } %>
+			</article>
+			<% }) %>
+
+			<h3>Kirjautumistiedot</h3>
+			<article class="content">
+				<p>MQTT verkon tunnus on pmcverkko ja salasana on 442marnyt.</p>
+				<p>Laitteidesi sala-avaimet on listattu yläpuolella.</p>
+				<strong>Älä jaa näitä tietoja ulkopuolisten kanssa.</strong>
+			</article>
+		</div>
+		<div class="right">
+			<div id="map"></div>
+		</div>
+	</section>
+</main>
+
+<script src="/static/js/socket.io.min.js"></script>
+<script src="/static/js/profile.js"></script>
+<%- include('partials/footer') %>

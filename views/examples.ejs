@@ -1,0 +1,67 @@
+<%- include('partials/head') %>
+
+<main class="main">
+	<section class="main-page">
+		<div class="left">
+			<article class="content">
+				<h3>Esimerkit</h3>
+				<p>Valitse oma konfiguraatiosi.</p>
+				<form action="/findCode" method="GET">
+					<div class="form-field">
+						<label for="device">Laite:</label>
+						<select name="device" id="device" required>
+							<option value="">Valitse laite</option>
+							<% devices.forEach(device => { %>
+							<option value="<%= device.urlName %>"><%= device.name %></option>
+							<% }) %>
+						</select>
+					</div>
+
+					<div class="form-field">
+						<label for="sensor">Anturi:</label>
+						<select name="sensor" id="sensor" required>
+							<option value="">Valitse anturi</option>
+							<% sensors.forEach(sens => { %>
+							<option value="<%= sens.urlName %>"><%= sens.name %></option>
+							<% }) %>
+						</select>
+					</div>
+
+					<div class="form-field">
+						<label for="connection">Yhteys:</label>
+						<select name="connection" id="connection" required>
+							<option value="">Valitse yhteystyyppi</option>
+							<% connections.forEach(con => { %>
+							<option value="<%= con.urlName %>"><%= con.name %></option>
+							<% }) %>
+						</select>
+					</div>
+
+					<div class="form-button">
+						<button type="submit">Hae</button>
+					</div>
+
+				</form>
+			</article>
+
+			<article class="content">
+				<h3>Osallistu</h3>
+				<p>Onko sinulla toimiva koodiesimerkki? Lähetä se meille, niin lisäämme sen tälle sivulle.</p>
+			</article>
+		</div>
+		<div class="right">
+			<pre>
+				<code class="code">
+					<%- exampleCode %>
+				</code>
+			</pre>
+		</div>
+	</section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+<script>
+	hljs.highlightAll();
+	const firstLine = document.querySelector('.code').firstChild;
+	firstLine.textContent = '';
+</script>
+<%- include('partials/footer') %>

@@ -1,0 +1,74 @@
+<%- include('partials/head') %>
+
+<main class="main">
+	<section class="main-page">
+		<div class="left">
+			<h3>
+				Keskustelu
+				<a href="/discussion/new" class="button">Aloita uusi</a>
+			</h3>
+			<% threads.forEach(thread => { %>
+			<a href="/discussion/<%= thread.url %>">
+				<article class="content">
+					<h3>
+						<span>
+							<%= thread.title %>
+						</span>
+						<span>
+							<%= thread.author %>
+						</span>
+					</h3>
+					<p><%= thread.content %></p>
+				</article>
+			</a>
+			<% }) %>
+		</div>
+		<div class="right">
+			<% if (currentThread !== undefined) { %>
+			<article class="content thread">
+				<div class="thread-title">
+					<h3><%= currentThread.title %></h3>
+				</div>
+				<div class="thread-content">
+					<p><%= currentThread.content %></p>
+				</div>
+
+				<article class="update">
+					<h4>Kommentoi</h4>
+					<form action="/commentThread" method="POST">
+						<input type="hidden" name="id" value="<%= currentThread._id %>">
+						<div class="form-field">
+							<label for="comment">Kommentti:</label>
+							<textarea name="comment" id="" cols="30" rows="2" required></textarea>
+						</div>
+						<div class="form-button">
+							<button type="submit">Lähetä</button>
+						</div>
+					</form>
+				</article>
+
+				<article class="update">
+					<h4>Kommentit</h4>
+					<% if (currentThread.comments.length > 0) { %>
+					<% currentThread.comments.forEach(comment => { %>
+					<article class="comment">
+						<div class="comment-author">
+							<h4><%= comment.author %></h4>
+							<p><%= comment.date.toLocaleDateString() %></p>
+						</div>
+						<div class="comment-content">
+							<p><%= comment.comment %></p>
+						</div>
+					</article>
+					<% }) %>
+					<% } else { %>
+					<p>Ei kommentteja</p>
+					<% } %>
+				</article>
+			</article>
+			<% } %>
+		</div>
+	</section>
+</main>
+
+<%- include('partials/footer') %>

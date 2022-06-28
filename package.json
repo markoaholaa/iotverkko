@@ -1,0 +1,28 @@
+{
+	"name": "iotverkko",
+	"version": "0.0.1",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"sass": "sass --watch src/scss/main.scss:static/css/main.css"
+	},
+	"keywords": [],
+	"author": "Marko Ahola <markoahola@icloud.com>",
+	"license": "ISC",
+	"dependencies": {
+		"axios": "^0.27.2",
+		"connect-flash": "^0.1.1",
+		"dotenv": "^16.0.1",
+		"ejs": "^3.1.8",
+		"express": "^4.18.1",
+		"express-fileupload": "^1.4.0",
+		"express-session": "^1.17.3",
+		"highlight.js": "^11.5.1",
+		"mongoose": "^6.4.0",
+		"mqtt": "^4.3.7",
+		"passport": "^0.6.0",
+		"passport-local": "^1.0.0",
+		"passport-local-mongoose": "^7.1.2",
+		"socket.io": "^4.5.1"
+	}
+}

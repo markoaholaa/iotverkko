@@ -1,0 +1,31 @@
+<%- include('partials/head') %>
+
+<main class="main">
+	<section class="content-page">
+		<div class="grid grid-auto gap-1">
+
+			<% guides.forEach(guide => { %>
+			<a href="<%= guide.url %>">
+				<div class="card">
+					<div class="card-image">
+						<img src="<%= guide.image ? guide.image : '/static/img/default-image.png' %>"
+							alt="<%= guide.title %>">
+					</div>
+					<div class="card-title">
+						<h3><%= guide.title %></h3>
+					</div>
+					<div class="card-content">
+						<% if (guide.content && guide.content.length > 0) { %>
+						<%- guide.content.substring(0, 100) %> <% if (guide.content.length > 100) { %> ... <% } %>
+						<% } else { %>
+						<p>Ohjeessa ei ole sisältöä.</p>
+						<% } %>
+					</div>
+				</div>
+			</a>
+			<% }) %>
+		</div>
+	</section>
+</main>
+
+<%- include('partials/footer') %>

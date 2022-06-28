@@ -1,0 +1,17 @@
+<nav class="nav">
+	<div class="nav-icon">
+		<img src="/static/img/logo.svg" alt="logo image">
+	</div>
+	<div class="menu">
+		<a href="/"><i class="fa-solid fa-house"></i></a>
+		<a href="/info"><i class="fa-solid fa-info"></i></a>
+		<a href="/devices"><i class="fa-solid fa-microchip"></i></a>
+		<a href="/examples"><i class="fa-solid fa-code"></i></a>
+		<a href="/3dprint"><i class="fa-solid fa-cube"></i></a>
+		<a href="/guides"><i class="fa-solid fa-book"></i></a>
+		<a href="/discussion"><i class="fa-solid fa-comments"></i></a>
+		<% if (user && user.email === 'markoahola@icloud.com') { %>
+		<a href="/admin"><i class="fa-solid fa-gear"></i></a>
+		<% } %>
+	</div>
+</nav>

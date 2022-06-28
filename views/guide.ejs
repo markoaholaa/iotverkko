@@ -1,0 +1,17 @@
+<%- include('partials/head') %>
+
+<main class="main">
+	<section class="content-page">
+		<article class="guide">
+			<div class="guide-image">
+				<img src="<%= !guide.image ? '/static/img/default-image.png' : guide.image %>" alt="">
+				<h3><%= guide.title %></h3>
+			</div>
+			<div class="guide-content">
+				<%- guide.content %>
+			</div>
+		</article>
+	</section>
+</main>
+
+<%- include('partials/footer') %>

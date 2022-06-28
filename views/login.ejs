@@ -1,0 +1,33 @@
+<%- include('partials/head') %>
+
+<main class="main">
+	<section class="main-page">
+		<div class="left">
+			<form action="/login" method="post">
+				<h3>Kirjaudu</h3>
+				<div class="form-field">
+					<label for="username">Käyttäjätunnus:</label>
+					<input type="text" name="username" required>
+				</div>
+				<div class="form-field">
+					<label for="password">Salasana:</label>
+					<input type="password" name="password" required>
+				</div>
+				<div class="form-button">
+					<button type="submit">Kirjaudu</button>
+				</div>
+				<div class="form-links">
+					<a href="/register">Luo tili</a>
+					<a href="/forgot-password">Unohtuiko salasana?</a>
+				</div>
+			</form>
+		</div>
+		<div class="right">
+			<div id="map"></div>
+		</div>
+	</section>
+</main>
+
+<script src="/static/js/socket.io.min.js"></script>
+<script src="/static/js/map.js"></script>
+<%- include('partials/footer') %>

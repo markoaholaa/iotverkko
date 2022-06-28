@@ -1,0 +1,125 @@
+<%- include('partials/head') %>
+<script src="https://cdn.tiny.cloud/1/qafvzxnduvqzena5amnaawr38811tcww7h35acwp2f86o284/tinymce/6/tinymce.min.js"
+	referrerpolicy="origin"></script>
+
+<main class="main">
+	<section class="admin-page">
+		<article class="content admin">
+			<div class="admin-title">
+				<h3>Kirjoita uusi ohje</h3>
+			</div>
+			<div class="admin-content">
+				<form action="/newGuide" method="post" enctype="multipart/form-data">
+					<div class="form-field">
+						<label for="title">Otsikko:</label>
+						<input type="text" name="title" required>
+					</div>
+					<div class="form-field">
+						<label for="content">Sisältö:</label>
+						<textarea name="content" id="guide"></textarea>
+					</div>
+					<div class="form-field">
+						<label for="image">Kuva:</label>
+						<input type="file" name="image">
+					</div>
+					<div class="form-button">
+						<button type="submit">Tallenna</button>
+					</div>
+				</form>
+			</div>
+		</article>
+
+		<article class="content admin">
+			<div class="admin-title">
+				<h3>Uusi koodimalli</h3>
+			</div>
+			<div class="admin-content">
+				<form action="/newCodeSnippet" method="post">
+					<div class="form-field">
+						<label for="device">Laite:</label>
+						<input type="text" name="device" required>
+					</div>
+					<div class="form-field">
+						<label for="sensor">Anturi:</label>
+						<input type="text" name="sensor" required>
+					</div>
+					<div class="form-field">
+						<label for="connection">Yhteys:</label>
+						<input type="text" name="connection" required>
+					</div>
+					<div class="form-field">
+						<label for="code">Koodi:</label>
+						<textarea name="code" cols="30" rows="10"></textarea>
+					</div>
+					<div class="form-button">
+						<button type="submit">Tallenna</button>
+					</div>
+				</form>
+			</div>
+		</article>
+
+		<article class="content admin">
+			<div class="admin-title">
+				<h3>Rekisteröidyt laitteet</h3>
+			</div>
+			<div class="admin-content">
+				<ul class="admin-list">
+					<li>
+						<strong>Laite ID</strong>
+						<strong>Avain</strong>
+						<strong>Omistaja</strong>
+						<strong>Rekisteröity</strong>
+						<strong>Viim. julkaisu</strong>
+					</li>
+					<% devices.forEach(device => { %>
+					<li>
+						<p><%= device.deviceid %></p>
+						<p><%= device.deviceSecret %></p>
+						<p><%= device.owner %></p>
+						<p><%= device.createdAt.toLocaleDateString() %></p>
+						<p><%= new Date(device.lastPublish * 1000).toLocaleString() %></p>
+						<p><a href="/device/<%= device.deviceid %>">Sijainti</a></p>
+						<button class="ban-button" value="<%= device.deviceSecret %>"><i
+								class="fa-solid fa-ban"></i></button>
+					</li>
+					<% }) %>
+				</ul>
+			</div>
+		</article>
+
+	</section>
+</main>
+
+<script src="/static/js/socket.io.min.js"></script>
+<script>
+	const socket = io();
+
+	tinymce.init({
+		selector: '#guide',
+		plugins: 'advlist autolink lists link image charmap preview anchor pagebreak',
+		toolbar_mode: 'floating',
+	});
+
+	const titles = document.querySelectorAll('.admin-title');
+	const adminPanels = document.querySelectorAll('.admin-content');
+
+	titles.forEach(title => {
+		title.addEventListener('click', () => {
+			const area = title.parentNode.lastChild.previousElementSibling;
+			if (area.style.height === 'auto') {
+				area.style.height = '0';
+			} else {
+				area.style.height = 'auto';
+			}
+		});
+	});
+
+	const banButtons = document.querySelectorAll('.ban-button');
+
+	banButtons.forEach(btn => {
+		btn.addEventListener('click', () => {
+			socket.emit('ban device', btn.value);
+		});
+	});
+</script>
+<%- include('partials/footer') %>
