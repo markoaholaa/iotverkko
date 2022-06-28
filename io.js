@@ -1,5 +1,3 @@
-console.log('Listening for IO messages');
-
 const Device = require('./db/models/device');
 const Ban = require('./db/models/ban');
 

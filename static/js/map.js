@@ -50,7 +50,7 @@ L.tileLayer(mapUrl, {
 	tileSize: 512,
 	zoomOffset: -1,
 	bounds: maxBounds,
-	accessToken: 'pk.eyJ1IjoibWFya29haG9sYSIsImEiOiJjbDNxZXpkNWgwYm85M2pwZm5lNm1pdm4wIn0.l4ffKeewsYuqfh9qSGs4Zg'
+	accessToken: ''
 }).addTo(map);
 
 if (latField === null) {
